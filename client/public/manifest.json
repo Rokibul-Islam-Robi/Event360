@@ -1,0 +1,16 @@
+{
+  "name": "Event 360 - Professional Photography & Videography",
+  "short_name": "Event 360",
+  "description": "Making your special moments last forever. Professional photography and videography services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+} 
