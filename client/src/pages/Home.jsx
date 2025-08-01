@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Video, Users, Star, CheckCircle, ArrowRight, Search, Calendar, MapPin, Phone, Mail, Instagram, Facebook, Youtube, Heart, Award, Play, Package, Gift, Shield, MessageCircle, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 const Home = () => {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -161,11 +162,8 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="flex items-center justify-center space-x-2 mb-6">
-              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                <Camera className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold">Event 360</span>
+            <div className="flex items-center justify-center mb-8">
+              <Logo showTagline={true} className="text-white" />
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
