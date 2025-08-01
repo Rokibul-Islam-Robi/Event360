@@ -4,7 +4,7 @@
   "description": "Professional Photography & Videography Platform",
   "main": "index.js",
   "scripts": {
-    "build": "cd client && npm install --legacy-peer-deps && npm run build",
+    "build": "node build.js",
     "dev": "cd client && npm run dev",
     "start": "cd client && npm run preview",
     "install-client": "cd client && npm install --legacy-peer-deps",
