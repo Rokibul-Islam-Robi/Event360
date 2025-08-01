@@ -76,54 +76,166 @@ const Home = () => {
   // Packages data
   const packages = [
     {
-      title: "Basic Package",
-      price: "$999",
+      title: "দুলহা দুলহান",
+      subtitle: "Dulha Dulhan",
+      price: "২৮,০০০৳",
+      priceEn: "28,000 Taka",
+      image: "https://images.unsplash.com/photo-1519741497674-611863552?w=400&h=300&fit=crop",
       features: [
-        "4 hours coverage",
-        "100 edited photos",
-        "Online gallery",
-        "Basic editing"
+        "একজন চীফ ফটোগ্রাফার",
+        "একজন সিনিয়র ফটোগ্রাফার", 
+        "একজন চীফ সিনেমাটোগ্রাফার",
+        "একজন সিনিয়র সিনেমাটোগ্রাফার",
+        "১০০ কপি প্রিন্ট",
+        "একটি ট্রেইলার",
+        "একটি ফটো ফ্রেম",
+        "একটি পেন্ড্রাইভ"
       ],
-      popular: false
+      featuresEn: [
+        "One Chief Photographer",
+        "One Senior Photographer",
+        "One Chief Cinematographer", 
+        "One Senior Cinematographer",
+        "100 Copies Print",
+        "One Trailer",
+        "One Photo Frame",
+        "One Pendrive"
+      ],
+      popular: true,
+      bgColor: "from-blue-900 to-purple-900",
+      borderColor: "border-blue-500"
     },
     {
-      title: "Standard Package",
-      price: "$1,499",
+      title: "সানাই",
+      subtitle: "Sanai",
+      price: "২০,০০০৳",
+      priceEn: "20,000 Taka",
+      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
       features: [
-        "8 hours coverage",
-        "200 edited photos",
-        "Online gallery",
-        "Professional editing",
-        "USB drive"
+        "একজন চীফ ফটোগ্রাফার",
+        "একজন জুনিয়র ফটোগ্রাফার",
+        "একজন সিনেমাটোগ্রাফার",
+        "১০০ কপি প্রিন্ট",
+        "একটি ট্রেইলার",
+        "একটি পেন্ড্রাইভ"
       ],
-      popular: true
+      featuresEn: [
+        "One Chief Photographer",
+        "One Junior Photographer",
+        "One Cinematographer",
+        "100 Copies Print", 
+        "One Trailer",
+        "One Pendrive"
+      ],
+      popular: false,
+      bgColor: "from-green-800 to-teal-700",
+      borderColor: "border-green-500"
     },
     {
-      title: "Premium Package",
-      price: "$2,499",
+      title: "পালকি",
+      subtitle: "Palki",
+      price: "১৫,০০০৳",
+      priceEn: "15,000 Taka",
+      image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&h=300&fit=crop",
       features: [
-        "Full day coverage",
-        "400 edited photos",
-        "Online gallery",
-        "Premium editing",
-        "USB drive",
-        "Photo album"
+        "একজন সিনিয়র ফটোগ্রাফার",
+        "একজন সিনেমাটোগ্রাফার",
+        "৫০ কপি প্রিন্ট",
+        "একটি পেন্ড্রাইভ"
       ],
-      popular: false
+      featuresEn: [
+        "One Senior Photographer",
+        "One Cinematographer",
+        "50 Copies Print",
+        "One Pendrive"
+      ],
+      popular: false,
+      bgColor: "from-teal-800 to-green-700",
+      borderColor: "border-teal-500"
     },
     {
-      title: "Ultimate Package",
-      price: "$3,999",
+      title: "সাত পাকে বাঁধা",
+      subtitle: "Sāt Pāke Bādhā",
+      price: "২৫,০০০৳",
+      priceEn: "25,000 Taka",
+      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
       features: [
-        "Full day coverage",
-        "600 edited photos",
-        "Online gallery",
-        "Premium editing",
-        "USB drive",
-        "Photo album",
-        "Video highlights"
+        "একজন সিনিয়র ফটোগ্রাফার",
+        "একজন জুনিয়র ফটোগ্রাফার",
+        "একজন সিনেমাটোগ্রাফার",
+        "৫০ কপি প্রিন্ট",
+        "একটি পেন্ড্রাইভ"
       ],
-      popular: false
+      featuresEn: [
+        "One Senior Photographer",
+        "One Junior Photographer",
+        "One Cinematographer",
+        "50 Copies Print",
+        "One Pendrive"
+      ],
+      popular: false,
+      bgColor: "from-purple-800 to-pink-700",
+      borderColor: "border-purple-500"
+    },
+    {
+      title: "শুভ",
+      subtitle: "Shubho",
+      price: "৩০,০০০৳",
+      priceEn: "30,000 Taka",
+      image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      features: [
+        "একজন চীফ ফটোগ্রাফার",
+        "একজন সিনিয়র ফটোগ্রাফার",
+        "একজন চীফ সিনেমাটোগ্রাফার",
+        "একটি ট্রেইলার",
+        "১০০ কপি প্রিন্ট",
+        "একটি পেন্ড্রাইভ",
+        "একটি ফটো এলবাম"
+      ],
+      featuresEn: [
+        "One Chief Photographer",
+        "One Senior Photographer",
+        "One Chief Cinematographer",
+        "One Trailer",
+        "100 Copies Print",
+        "One Pendrive",
+        "One Photo Album"
+      ],
+      popular: false,
+      bgColor: "from-green-700 to-blue-800",
+      borderColor: "border-green-500"
+    },
+    {
+      title: "লগ্ন",
+      subtitle: "Lagna",
+      price: "৩৮,০০০৳",
+      priceEn: "38,000 Taka",
+      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
+      features: [
+        "একজন চীফ ফটোগ্রাফার",
+        "একজন সিনিয়র ফটোগ্রাফার",
+        "একজন চীফ সিনেমাটোগ্রাফার",
+        "একজন সিনিয়র সিনেমাটোগ্রাফার",
+        "একটি ট্রেইলার",
+        "১০০ কপি প্রিন্ট",
+        "একটি পেন্ড্রাইভ",
+        "একটি ফটো এলবাম",
+        "একটি ফটো ফ্রেম"
+      ],
+      featuresEn: [
+        "One Chief Photographer",
+        "One Senior Photographer",
+        "One Chief Cinematographer",
+        "One Senior Cinematographer",
+        "One Trailer",
+        "100 Copies Print",
+        "One Pendrive",
+        "One Photo Album",
+        "One Photo Frame"
+      ],
+      popular: false,
+      bgColor: "from-red-800 to-pink-700",
+      borderColor: "border-red-500"
     }
   ];
 
@@ -327,40 +439,59 @@ const Home = () => {
             <div className="w-24 h-1 bg-purple-400 mx-auto mt-4"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {packages.map((pkg, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border ${
-                  pkg.popular ? 'border-purple-500' : 'border-gray-700'
-                } text-center hover:bg-gray-800/70 transition-colors relative`}
+                className={`bg-gradient-to-br ${pkg.bgColor} backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border ${pkg.borderColor} hover:scale-105 transition-all duration-300 relative`}
               >
                 {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
                       Most Popular
                     </span>
                   </div>
                 )}
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Package className="w-8 h-8 text-white" />
+                
+                {/* Package Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20"></div>
+                  <div className="absolute top-4 left-4">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
+                      <h3 className="text-lg font-bold text-gray-800">{pkg.title}</h3>
+                      <p className="text-sm text-gray-600">{pkg.subtitle}</p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{pkg.title}</h3>
-                <div className="text-3xl font-bold text-purple-400 mb-4">{pkg.price}</div>
-                <ul className="space-y-2 mb-6">
-                  {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="text-gray-300 text-sm flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-full font-medium transition-colors">
-                  Choose Package
-                </button>
+
+                {/* Package Content */}
+                <div className="p-6">
+                  <div className="text-center mb-4">
+                    <div className="text-3xl font-bold text-white mb-2">{pkg.price}</div>
+                    <div className="text-sm text-gray-300">{pkg.priceEn}</div>
+                  </div>
+                  
+                  <ul className="space-y-2 mb-6">
+                    {pkg.features.map((feature, idx) => (
+                      <li key={idx} className="text-white text-sm flex items-start">
+                        <CheckCircle className="w-4 h-4 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <button className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-lg font-medium transition-all duration-300 border border-white/30 hover:border-white/50">
+                    Choose Package
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
