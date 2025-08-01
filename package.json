@@ -1,0 +1,27 @@
+{
+  "name": "event360",
+  "version": "1.0.0",
+  "description": "Professional Photography & Videography Platform",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "dev": "cd client && npm run dev",
+    "start": "cd client && npm run preview",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "dev-client": "cd client && npm run dev"
+  },
+  "keywords": [
+    "react",
+    "django",
+    "photography",
+    "videography",
+    "event360"
+  ],
+  "author": "Rokibul Islam Robi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rokibul-Islam-Robi/Event360.git"
+  }
+} 
