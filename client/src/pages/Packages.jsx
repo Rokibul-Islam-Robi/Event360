@@ -1,206 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Check, 
-  Star, 
-  Camera, 
-  Video, 
-  Clock, 
-  Users, 
-  Calendar,
-  MapPin,
-  Heart,
-  Share2,
-  BookOpen,
-  CheckCircle
-} from 'lucide-react';
+import PackageManager from '../components/PackageManager';
 
 const Packages = () => {
   const [selectedType, setSelectedType] = useState('all');
+  const [packages, setPackages] = useState([]);
 
-  // Updated packages data with Bengali designs
-  const packages = [
-    {
-      id: 1,
-      title: "দুলহা দুলহান",
-      subtitle: "Dulha Dulhan",
-      package_type: "wedding",
-      description: "Comprehensive wedding photography and videography package with full coverage",
-      price: "২৮,০০০৳",
-      priceEn: "28,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxZTI5NTQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzA2NztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NhMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-blue-900 to-purple-900",
-      borderColor: "border-blue-500",
-      popular: true,
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার", 
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একজন সিনিয়র সিনেমাটোগ্রাফার",
-        "১০০ কপি প্রিন্ট",
-        "একটি ট্রেইলার",
-        "একটি ফটো ফ্রেম",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer", 
-        "One Senior Cinematographer",
-        "100 Copies Print",
-        "One Trailer",
-        "One Photo Frame",
-        "One Pendrive"
-      ]
-    },
-    {
-      id: 2,
-      title: "সানাই",
-      subtitle: "Sanai",
-      package_type: "wedding",
-      description: "Traditional wedding package with essential coverage and professional editing",
-      price: "২০,০০০৳",
-      priceEn: "20,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmNWY1ZGM7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2Y0ZmNlYztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-green-800 to-teal-700",
-      borderColor: "border-green-500",
-      popular: false,
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন জুনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "১০০ কপি প্রিন্ট",
-        "একটি ট্রেইলার",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Junior Photographer",
-        "One Cinematographer",
-        "100 Copies Print", 
-        "One Trailer",
-        "One Pendrive"
-      ]
-    },
-    {
-      id: 3,
-      title: "পালকি",
-      subtitle: "Palki",
-      package_type: "wedding",
-      description: "Elegant wedding package with traditional elements and modern coverage",
-      price: "১৫,০০০৳",
-      priceEn: "15,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwZGRjY2M7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzE2YTM5NDtzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-teal-800 to-green-700",
-      borderColor: "border-teal-500",
-      popular: false,
-      features: [
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "৫০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Senior Photographer",
-        "One Cinematographer",
-        "50 Copies Print",
-        "One Pendrive"
-      ]
-    },
-    {
-      id: 4,
-      title: "সাত পাকে বাঁধা",
-      subtitle: "Sāt Pāke Bādhā",
-      package_type: "wedding",
-      description: "Traditional seven-knot wedding package with complete ritual coverage",
-      price: "২৫,০০০৳",
-      priceEn: "25,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2YDI4YTc7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2VjNDk4YztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmY2YjM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-purple-800 to-pink-700",
-      borderColor: "border-purple-500",
-      popular: false,
-      features: [
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন জুনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "৫০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Senior Photographer",
-        "One Junior Photographer",
-        "One Cinematographer",
-        "50 Copies Print",
-        "One Pendrive"
-      ]
-    },
-    {
-      id: 5,
-      title: "শুভ",
-      subtitle: "Shubho",
-      package_type: "wedding",
-      description: "Auspicious wedding package with comprehensive coverage and premium features",
-      price: "৩০,০০০৳",
-      priceEn: "30,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNmE5NzQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFkNGJhODtzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-green-700 to-blue-800",
-      borderColor: "border-green-500",
-      popular: false,
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একটি ট্রেইলার",
-        "১০০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ",
-        "একটি ফটো এলবাম"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer",
-        "One Trailer",
-        "100 Copies Print",
-        "One Pendrive",
-        "One Photo Album"
-      ]
-    },
-    {
-      id: 6,
-      title: "লগ্ন",
-      subtitle: "Lagna",
-      package_type: "wedding",
-      description: "Premium wedding package with complete coverage and luxury features",
-      price: "৩৮,০০০৳",
-      priceEn: "38,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNiOTFhMWU7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2VjNDk4YztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      bgColor: "from-red-800 to-pink-700",
-      borderColor: "border-red-500",
-      popular: false,
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একজন সিনিয়র সিনেমাটোগ্রাফার",
-        "একটি ট্রেইলার",
-        "১০০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ",
-        "একটি ফটো এলবাম",
-        "একটি ফটো ফ্রেম"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer",
-        "One Senior Cinematographer",
-        "One Trailer",
-        "100 Copies Print",
-        "One Pendrive",
-        "One Photo Album",
-        "One Photo Frame"
-      ]
+  // Load packages from localStorage
+  useEffect(() => {
+    const savedPackages = localStorage.getItem('event360_packages');
+    if (savedPackages) {
+      setPackages(JSON.parse(savedPackages));
+    } else {
+      // Default packages if none exist
+      const defaultPackages = [
+        {
+          id: 1,
+          title: "দুলহা দুলহান",
+          subtitle: "Dulha Dulhan",
+          package_type: "wedding",
+          description: "Comprehensive wedding photography and videography package with full coverage",
+          price: "২৮,০০০৳",
+          priceEn: "28,000 Taka",
+          image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxZTI5NTQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzA2NztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NhMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
+          bgColor: "from-blue-900 to-purple-900",
+          borderColor: "border-blue-500",
+          popular: true,
+          features: [
+            "একজন চীফ ফটোগ্রাফার",
+            "একজন সিনিয়র ফটোগ্রাফার", 
+            "একজন চীফ সিনেমাটোগ্রাফার",
+            "একজন সিনিয়র সিনেমাটোগ্রাফার",
+            "১০০ কপি প্রিন্ট",
+            "একটি ট্রেইলার",
+            "একটি ফটো ফ্রেম",
+            "একটি পেন্ড্রাইভ"
+          ],
+          featuresEn: [
+            "One Chief Photographer",
+            "One Senior Photographer",
+            "One Chief Cinematographer", 
+            "One Senior Cinematographer",
+            "100 Copies Print",
+            "One Trailer",
+            "One Photo Frame",
+            "One Pendrive"
+          ]
+        }
+      ];
+      setPackages(defaultPackages);
+      localStorage.setItem('event360_packages', JSON.stringify(defaultPackages));
     }
-  ];
+  }, []);
+
+  // Save packages to localStorage whenever packages change
+  useEffect(() => {
+    localStorage.setItem('event360_packages', JSON.stringify(packages));
+  }, [packages]);
 
   const packageTypes = [
     { id: 'all', label: 'All Packages' },
@@ -214,6 +70,20 @@ const Packages = () => {
   const filteredPackages = packages.filter(pkg => {
     return selectedType === 'all' || pkg.package_type === selectedType;
   });
+
+  const handleAddPackage = (newPackage) => {
+    setPackages([...packages, newPackage]);
+  };
+
+  const handleEditPackage = (updatedPackage) => {
+    setPackages(packages.map(pkg => pkg.id === updatedPackage.id ? updatedPackage : pkg));
+  };
+
+  const handleDeletePackage = (id) => {
+    if (window.confirm('Are you sure you want to delete this package?')) {
+      setPackages(packages.filter(pkg => pkg.id !== id));
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -278,67 +148,18 @@ const Packages = () => {
           </div>
         </div>
 
-        {/* Packages Grid */}
+        {/* Package Manager */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {filteredPackages.map((pkg) => (
-            <motion.div
-              key={pkg.id}
-              variants={itemVariants}
-              className={`bg-gradient-to-br ${pkg.bgColor} backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border ${pkg.borderColor} hover:scale-105 transition-all duration-300 relative`}
-            >
-              {pkg.popular && (
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-              
-              {/* Package Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={pkg.image}
-                  alt={pkg.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute top-4 left-4">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
-                    <h3 className="text-lg font-bold text-gray-800">{pkg.title}</h3>
-                    <p className="text-sm text-gray-600">{pkg.subtitle}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Package Content */}
-              <div className="p-6">
-                <p className="text-white/80 text-sm mb-4">{pkg.description}</p>
-                
-                <div className="text-center mb-4">
-                  <div className="text-3xl font-bold text-white mb-2">{pkg.price}</div>
-                  <div className="text-sm text-gray-300">{pkg.priceEn}</div>
-                </div>
-                
-                <ul className="space-y-2 mb-6">
-                  {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="text-white text-sm flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <button className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-lg font-medium transition-all duration-300 border border-white/30 hover:border-white/50">
-                  Choose Package
-                </button>
-              </div>
-            </motion.div>
-          ))}
+          <PackageManager
+            packages={filteredPackages}
+            onAddPackage={handleAddPackage}
+            onEditPackage={handleEditPackage}
+            onDeletePackage={handleDeletePackage}
+          />
         </motion.div>
 
         {/* Empty State */}
@@ -353,11 +174,11 @@ const Packages = () => {
                 No packages found
               </h3>
               <p className="text-gray-300 mb-6">
-                Try adjusting your filters to find the perfect package for your event.
+                Try adjusting your filters or add a new package to get started.
               </p>
               <button
                 onClick={() => setSelectedType('all')}
-                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors mr-4"
               >
                 Clear Filters
               </button>

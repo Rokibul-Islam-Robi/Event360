@@ -1,11 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, Video, Users, Star, CheckCircle, ArrowRight, Search, Calendar, MapPin, Phone, Mail, Instagram, Facebook, Youtube, Heart, Award, Play, Package, Gift, Shield, MessageCircle, HelpCircle } from 'lucide-react';
+import { 
+  Camera, 
+  Video, 
+  Users, 
+  Star, 
+  CheckCircle, 
+  ArrowRight, 
+  Search, 
+  Calendar, 
+  MapPin, 
+  Phone, 
+  Mail, 
+  Instagram, 
+  Facebook, 
+  Youtube, 
+  Heart, 
+  Award, 
+  Play, 
+  Package, 
+  Gift, 
+  Shield, 
+  MessageCircle, 
+  HelpCircle 
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '../components/Logo';
 
 const Home = () => {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [packages, setPackages] = useState([]);
+
+  // Load packages from localStorage
+  useEffect(() => {
+    const savedPackages = localStorage.getItem('event360_packages');
+    if (savedPackages) {
+      setPackages(JSON.parse(savedPackages));
+    } else {
+      // Default packages if none exist
+      const defaultPackages = [
+        {
+          id: 1,
+          title: "দুলহা দুলহান",
+          subtitle: "Dulha Dulhan",
+          price: "২৮,০০০৳",
+          priceEn: "28,000 Taka",
+          image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxZTI5NTQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzA2NztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NhMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
+          features: [
+            "একজন চীফ ফটোগ্রাফার",
+            "একজন সিনিয়র ফটোগ্রাফার", 
+            "একজন চীফ সিনেমাটোগ্রাফার",
+            "একজন সিনিয়র সিনেমাটোগ্রাফার",
+            "১০০ কপি প্রিন্ট",
+            "একটি ট্রেইলার",
+            "একটি ফটো ফ্রেম",
+            "একটি পেন্ড্রাইভ"
+          ],
+          featuresEn: [
+            "One Chief Photographer",
+            "One Senior Photographer",
+            "One Chief Cinematographer", 
+            "One Senior Cinematographer",
+            "100 Copies Print",
+            "One Trailer",
+            "One Photo Frame",
+            "One Pendrive"
+          ],
+          popular: true,
+          bgColor: "from-blue-900 to-purple-900",
+          borderColor: "border-blue-500"
+        }
+      ];
+      setPackages(defaultPackages);
+      localStorage.setItem('event360_packages', JSON.stringify(defaultPackages));
+    }
+  }, []);
+
+  // Listen for changes in localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedPackages = localStorage.getItem('event360_packages');
+      if (savedPackages) {
+        setPackages(JSON.parse(savedPackages));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   // Sample events data
   const events = [
@@ -71,172 +153,6 @@ const Home = () => {
     { icon: Video, title: "Videography", description: "Cinematic video production to capture your memories in motion." },
     { icon: Users, title: "Professional Photoshoot", description: "Expert photographers for portraits, events, and special occasions." },
     { icon: Award, title: "Corporate Event", description: "Professional coverage for corporate events and business functions." }
-  ];
-
-  // Packages data
-  const packages = [
-    {
-      title: "দুলহা দুলহান",
-      subtitle: "Dulha Dulhan",
-      price: "২৮,০০০৳",
-      priceEn: "28,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxZTI5NTQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzM3MzA2NztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NhMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার", 
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একজন সিনিয়র সিনেমাটোগ্রাফার",
-        "১০০ কপি প্রিন্ট",
-        "একটি ট্রেইলার",
-        "একটি ফটো ফ্রেম",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer", 
-        "One Senior Cinematographer",
-        "100 Copies Print",
-        "One Trailer",
-        "One Photo Frame",
-        "One Pendrive"
-      ],
-      popular: true,
-      bgColor: "from-blue-900 to-purple-900",
-      borderColor: "border-blue-500"
-    },
-    {
-      title: "সানাই",
-      subtitle: "Sanai",
-      price: "২০,০০০৳",
-      priceEn: "20,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmNWY1ZGM7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2Y0ZmNlYztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন জুনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "১০০ কপি প্রিন্ট",
-        "একটি ট্রেইলার",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Junior Photographer",
-        "One Cinematographer",
-        "100 Copies Print", 
-        "One Trailer",
-        "One Pendrive"
-      ],
-      popular: false,
-      bgColor: "from-green-800 to-teal-700",
-      borderColor: "border-green-500"
-    },
-    {
-      title: "পালকি",
-      subtitle: "Palki",
-      price: "১৫,০০০৳",
-      priceEn: "15,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwZGRjY2M7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzE2YTM5NDtzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "৫০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Senior Photographer",
-        "One Cinematographer",
-        "50 Copies Print",
-        "One Pendrive"
-      ],
-      popular: false,
-      bgColor: "from-teal-800 to-green-700",
-      borderColor: "border-teal-500"
-    },
-    {
-      title: "সাত পাকে বাঁধা",
-      subtitle: "Sāt Pāke Bādhā",
-      price: "২৫,০০০৳",
-      priceEn: "25,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM2YDI4YTc7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2VjNDk4YztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmY2YjM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন জুনিয়র ফটোগ্রাফার",
-        "একজন সিনেমাটোগ্রাফার",
-        "৫০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ"
-      ],
-      featuresEn: [
-        "One Senior Photographer",
-        "One Junior Photographer",
-        "One Cinematographer",
-        "50 Copies Print",
-        "One Pendrive"
-      ],
-      popular: false,
-      bgColor: "from-purple-800 to-pink-700",
-      borderColor: "border-purple-500"
-    },
-    {
-      title: "শুভ",
-      subtitle: "Shubho",
-      price: "৩০,০০০৳",
-      priceEn: "30,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNmE5NzQ7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFkNGJhODtzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একটি ট্রেইলার",
-        "১০০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ",
-        "একটি ফটো এলবাম"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer",
-        "One Trailer",
-        "100 Copies Print",
-        "One Pendrive",
-        "One Photo Album"
-      ],
-      popular: false,
-      bgColor: "from-green-700 to-blue-800",
-      borderColor: "border-green-500"
-    },
-    {
-      title: "লগ্ন",
-      subtitle: "Lagna",
-      price: "৩৮,০০০৳",
-      priceEn: "38,000 Taka",
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNiOTFhMWU7c3RvcC1vcGFjaXR5OjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2VjNDk4YztzdG9wLW9wYWNpdHk6MSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZGMyNjI2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7gmbDgmbDgmbDgmbD4g4Jmw4Jmw4Jmw4Jmw4JmwPC90ZXh0Pgo8L3N2Zz4K",
-      features: [
-        "একজন চীফ ফটোগ্রাফার",
-        "একজন সিনিয়র ফটোগ্রাফার",
-        "একজন চীফ সিনেমাটোগ্রাফার",
-        "একজন সিনিয়র সিনেমাটোগ্রাফার",
-        "একটি ট্রেইলার",
-        "১০০ কপি প্রিন্ট",
-        "একটি পেন্ড্রাইভ",
-        "একটি ফটো এলবাম",
-        "একটি ফটো ফ্রেম"
-      ],
-      featuresEn: [
-        "One Chief Photographer",
-        "One Senior Photographer",
-        "One Chief Cinematographer",
-        "One Senior Cinematographer",
-        "One Trailer",
-        "100 Copies Print",
-        "One Pendrive",
-        "One Photo Album",
-        "One Photo Frame"
-      ],
-      popular: false,
-      bgColor: "from-red-800 to-pink-700",
-      borderColor: "border-red-500"
-    }
   ];
 
   // FAQ data
