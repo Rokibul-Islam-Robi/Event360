@@ -26,10 +26,12 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '../components/Logo';
+import HeroBackgroundManager from '../components/HeroBackgroundManager';
 
 const Home = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [packages, setPackages] = useState([]);
+  const [currentBackground, setCurrentBackground] = useState(null);
 
   // Load packages from localStorage
   useEffect(() => {
@@ -89,229 +91,265 @@ const Home = () => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  const handleBackgroundChange = (background) => {
+    setCurrentBackground(background);
+  };
+
   // Sample events data
   const events = [
-    {
-      id: 1,
-      title: "Sarah & John's Wedding",
-      category: "Photography",
-      image: "https://images.unsplash.com/photo-1519741497674-611863552?w=400&h=300&fit=crop",
-      date: "March 15, 2024",
-      location: "Grand Plaza Hotel"
+    { 
+      id: 1, 
+      title: "Wedding Photography", 
+      category: "Photography", 
+      image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
+      date: "2024-01-15",
+      location: "Dhaka, Bangladesh",
+      rating: 4.8,
+      reviews: 24
     },
-    {
-      id: 2,
-      title: "Corporate Annual Meeting",
-      category: "Videography",
+    { 
+      id: 2, 
+      title: "Corporate Event Coverage", 
+      category: "Videography", 
       image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
-      date: "March 10, 2024",
-      location: "Business Center"
+      date: "2024-01-20",
+      location: "Chittagong, Bangladesh",
+      rating: 4.9,
+      reviews: 18
     },
-    {
-      id: 3,
-      title: "Emma's Sweet 16",
-      category: "Photography",
-      image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&h=300&fit=crop",
-      date: "March 8, 2024",
-      location: "Community Hall"
+    { 
+      id: 3, 
+      title: "Birthday Celebration", 
+      category: "Photography", 
+      image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      date: "2024-01-25",
+      location: "Sylhet, Bangladesh",
+      rating: 4.7,
+      reviews: 31
     },
-    {
-      id: 4,
-      title: "Tech Conference 2024",
-      category: "Videography",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-      date: "March 5, 2024",
-      location: "Convention Center"
-    },
-    {
-      id: 5,
-      title: "Mike & Lisa's Engagement",
-      category: "Photography",
+    { 
+      id: 4, 
+      title: "Anniversary Shoot", 
+      category: "Photography", 
       image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
-      date: "March 3, 2024",
-      location: "Central Park"
+      date: "2024-01-30",
+      location: "Rajshahi, Bangladesh",
+      rating: 4.8,
+      reviews: 22
     },
-    {
-      id: 6,
-      title: "Product Launch Event",
-      category: "Videography",
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
-      date: "March 1, 2024",
-      location: "Innovation Hub"
+    { 
+      id: 5, 
+      title: "Graduation Ceremony", 
+      category: "Videography", 
+      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9d1?w=400&h=300&fit=crop",
+      date: "2024-02-05",
+      location: "Khulna, Bangladesh",
+      rating: 4.9,
+      reviews: 28
+    },
+    { 
+      id: 6, 
+      title: "Engagement Party", 
+      category: "Photography", 
+      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=300&fit=crop",
+      date: "2024-02-10",
+      location: "Barisal, Bangladesh",
+      rating: 4.7,
+      reviews: 19
     }
   ];
 
-  const filteredEvents = activeFilter === 'All' 
-    ? events 
-    : events.filter(event => event.category === activeFilter);
+  const filteredEvents = events.filter(event => {
+    return activeFilter === 'All' || event.category === activeFilter;
+  });
 
   // Services data
   const services = [
-    { icon: Calendar, title: "Book Event", description: "Reserve your preferred date and time with our professional team." },
-    { icon: Package, title: "Packages", description: "Choose from our comprehensive photography and videography packages." },
-    { icon: Camera, title: "Photography", description: "Professional photography services for all your special moments." },
-    { icon: Video, title: "Videography", description: "Cinematic video production to capture your memories in motion." },
-    { icon: Users, title: "Professional Photoshoot", description: "Expert photographers for portraits, events, and special occasions." },
+    { icon: Camera, title: "Wedding Photography", description: "Capture your special day with our professional wedding photography services." },
+    { icon: Video, title: "Event Videography", description: "Professional video coverage for all your important events and celebrations." },
+    { icon: Users, title: "Portrait Sessions", description: "Beautiful portrait photography for individuals, couples, and families." },
     { icon: Award, title: "Corporate Event", description: "Professional coverage for corporate events and business functions." }
   ];
 
   // FAQ data
   const faqs = [
     {
-      question: "What packages do you offer for wedding photography?",
-      answer: "We offer comprehensive wedding packages including engagement shoots, full-day coverage, and premium albums. Our packages start from $1,500 and include high-resolution digital files."
+      question: "What photography packages do you offer?",
+      answer: "We offer comprehensive wedding photography packages starting from 28,000 Taka, including professional photographers, edited photos, and beautiful albums."
     },
     {
-      question: "How far in advance should I book my event?",
-      answer: "We recommend booking at least 6-12 months in advance for weddings and 2-3 months for other events. Popular dates fill up quickly, so early booking ensures availability."
+      question: "Do you provide videography services?",
+      answer: "Yes, we offer professional videography services for weddings, corporate events, and special celebrations with cinematic quality."
     },
     {
-      question: "Do you provide videography services as well?",
-      answer: "Yes! We offer both photography and videography services. Our videography packages include cinematic wedding films, event coverage, and highlight reels with professional editing."
+      question: "How far in advance should I book?",
+      answer: "We recommend booking at least 3-6 months in advance for weddings and 1-2 months for other events to ensure availability."
     },
     {
-      question: "What is your cancellation and refund policy?",
-      answer: "We offer flexible cancellation policies. Full refunds are available up to 30 days before the event. Within 30 days, we offer partial refunds or rescheduling options."
+      question: "Do you travel outside Dhaka?",
+      answer: "Yes, we provide services throughout Bangladesh. Travel costs may apply for locations outside Dhaka metropolitan area."
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-        
-        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
+      {/* Hero Section with Dynamic Background */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Dynamic Background */}
+        {currentBackground ? (
+          <div className="absolute inset-0 z-0">
+            {currentBackground.mediaType === 'image' ? (
+              <img
+                src={currentBackground.file}
+                alt={currentBackground.title}
+                className="w-full h-full object-cover"
+                style={{
+                  transition: currentBackground.transition === 'fade' ? 'opacity 1s ease-in-out' : 'none'
+                }}
+              />
+            ) : (
+              <video
+                src={currentBackground.file}
+                autoPlay
+                muted
+                loop
+                className="w-full h-full object-cover"
+                style={{
+                  transition: currentBackground.transition === 'fade' ? 'opacity 1s ease-in-out' : 'none'
+                }}
+              />
+            )}
+            {/* Overlay for better text readability */}
+            <div className="absolute inset-0 bg-black/40"></div>
+          </div>
+        ) : (
+          /* Default gradient background */
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"></div>
+        )}
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
           >
-            <div className="flex items-center justify-center mb-8">
-              <Logo showTagline={true} className="text-white" />
+            {/* Logo */}
+            <div className="mb-8">
+              <Logo showTagline={true} />
             </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              Making Your Special Moments
-              <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Last Forever</span>
+
+            {/* Main Headline */}
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Making Your Special Moments{' '}
+              <span className="text-purple-400">Last Forever</span>
             </h1>
-            
-            <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
-              Professional wedding photography and videography services that capture 
-              the essence of your most precious moments with artistic excellence.
+
+            {/* Description */}
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+              Professional wedding photography and videography services that capture the essence of your most precious moments with artistic excellence.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+
+            {/* Call to Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/packages"
-                className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-4 rounded-full flex items-center space-x-2 text-white font-medium transition-colors"
+                className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center"
               >
-                <span>Explore Packages</span>
-                <ArrowRight className="w-5 h-5" />
+                Explore Packages
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
-              
-              <button className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 text-lg px-8 py-4 rounded-full flex items-center space-x-2 border transition-colors">
-                <Play className="w-5 h-5" />
-                <span>Watch Showreel</span>
+              <button className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center">
+                <Play className="w-5 h-5 mr-2" />
+                Watch Showreel
               </button>
             </div>
           </motion.div>
         </div>
+
+        {/* Background Manager */}
+        <HeroBackgroundManager onBackgroundChange={handleBackgroundChange} />
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Rest of the content remains the same */}
+      {/* Recent Events Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+        <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Our <span className="text-purple-400">Services</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Recent <span className="text-purple-400">Events</span>
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Professional photography and videography services tailored to capture your special moments with artistic excellence.
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Explore our latest work and see how we capture the magic of your special moments.
             </p>
-            <div className="w-24 h-1 bg-purple-400 mx-auto mt-4"></div>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700 text-center hover:bg-gray-800/70 transition-colors"
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-4 justify-center mb-12">
+            {['All', 'Photography', 'Videography'].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  activeFilter === filter
+                    ? 'bg-purple-600 text-white shadow-lg'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
+                }`}
               >
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <service.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-                <p className="text-gray-300">{service.description}</p>
-              </motion.div>
+                {filter}
+              </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Recent Events Section */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Events Grid */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
-              📅 Recent <span className="text-purple-400">Events</span>
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-              Explore our latest photography and videography projects from recent events
-            </p>
-            
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {['All', 'Photography', 'Videography'].map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                    activeFilter === filter
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Event Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event, index) => (
+            {filteredEvents.map((event) => (
               <motion.div
                 key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:bg-gray-800/70 transition-all duration-300 hover:scale-105"
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  <div className="absolute top-4 left-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                       event.category === 'Photography' 
                         ? 'bg-blue-500 text-white' 
                         : 'bg-green-500 text-white'
@@ -321,47 +359,124 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
                   <div className="flex items-center text-gray-300 text-sm mb-3">
                     <Calendar className="w-4 h-4 mr-2" />
-                    <span>{event.date}</span>
+                    {event.date}
                   </div>
-                  <div className="flex items-center text-gray-300 text-sm">
+                  <div className="flex items-center text-gray-300 text-sm mb-4">
                     <MapPin className="w-4 h-4 mr-2" />
-                    <span>{event.location}</span>
+                    {event.location}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                      <span className="text-white font-medium">{event.rating}</span>
+                      <span className="text-gray-300 text-sm ml-1">({event.reviews})</span>
+                    </div>
+                    <button className="text-purple-400 hover:text-purple-300 transition-colors">
+                      View Details
+                    </button>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Packages Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Why Choose Event 360 Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-gray-900">
+        <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Our <span className="text-purple-400">Packages</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Why Choose <span className="text-purple-400">Event 360</span>
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Choose the perfect package for your special event. All packages include professional editing and online gallery.
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              We combine artistic vision with technical excellence to deliver memories that last a lifetime.
             </p>
-            <div className="w-24 h-1 bg-purple-400 mx-auto mt-4"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {packages.map((pkg, index) => (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {[
+              {
+                icon: Shield,
+                title: "Professional Team",
+                description: "Experienced photographers and videographers with years of expertise."
+              },
+              {
+                icon: Heart,
+                title: "Secure Bookings",
+                description: "Safe and secure booking system with flexible payment options."
+              },
+              {
+                icon: MessageCircle,
+                title: "Direct Communication",
+                description: "Direct communication with your assigned photographer throughout the process."
+              },
+              {
+                icon: Award,
+                title: "Quality Guarantee",
+                description: "100% satisfaction guarantee with unlimited revisions until you're happy."
+              }
+            ].map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <service.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                <p className="text-gray-300">{service.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Our Packages Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Our <span className="text-purple-400">Packages</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Choose from our carefully crafted packages designed to capture your special moments with professional excellence.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {packages.slice(0, 6).map((pkg) => (
+              <motion.div
+                key={pkg.id}
+                variants={itemVariants}
                 className={`bg-gradient-to-br ${pkg.bgColor} backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border ${pkg.borderColor} hover:scale-105 transition-all duration-300 relative`}
               >
                 {pkg.popular && (
@@ -396,7 +511,7 @@ const Home = () => {
                   </div>
                   
                   <ul className="space-y-2 mb-6">
-                    {pkg.features.map((feature, idx) => (
+                    {pkg.features.slice(0, 4).map((feature, idx) => (
                       <li key={idx} className="text-white text-sm flex items-start">
                         <CheckCircle className="w-4 h-4 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
@@ -404,107 +519,140 @@ const Home = () => {
                     ))}
                   </ul>
                   
-                  <button className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-lg font-medium transition-all duration-300 border border-white/30 hover:border-white/50">
+                  <Link
+                    to="/packages"
+                    className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-lg font-medium transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center"
+                  >
                     Choose Package
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mt-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-center"
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
           >
-            <div className="flex items-center justify-center mb-4">
-              <Gift className="w-8 h-8 text-white mr-3" />
-              <h3 className="text-2xl font-bold text-white">Special Discount</h3>
-            </div>
-            <p className="text-white/90 mb-4">Use code <span className="font-bold text-yellow-300">EVENT360</span> for 20% off your first booking!</p>
-            <button className="bg-white text-purple-600 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors">
-              Get Discount
-            </button>
+            <Link
+              to="/packages"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center"
+            >
+              View All Packages
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Why Choose Event 360 Section */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-white mb-4">Why Choose Event 360</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              We're committed to delivering exceptional photography and videography services with unmatched quality and professionalism.
-            </p>
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: "Professional Team", description: "All photographers are certified professionals with years of experience in capturing life's precious moments." },
-              { title: "Secure Bookings", description: "Your information and bookings are always protected with industry-standard security measures." },
-              { title: "Direct Communication", description: "Easily connect with our team and get instant updates on your event planning progress." },
-              { title: "Quality Guarantee", description: "We guarantee high-quality photos and videos or your money back - your satisfaction is our priority." }
-            ].map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700 text-center hover:bg-gray-800/70 transition-colors"
-              >
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{benefit.title}</h3>
-                <p className="text-gray-300">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-gray-900">
+        <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Get answers to common questions about our photography and videography services
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Frequently Asked <span className="text-purple-400">Questions</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Find answers to common questions about our photography and videography services.
             </p>
           </motion.div>
 
-          <div className="space-y-6">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto space-y-6"
+          >
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-700"
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6"
               >
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <HelpCircle className="w-6 h-6 text-white" />
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <HelpCircle className="w-4 h-4 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-3">{faq.question}</h3>
-                    <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                    <h3 className="text-lg font-semibold text-white mb-2">{faq.question}</h3>
+                    <p className="text-gray-300">{faq.answer}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Capture Your <span className="text-purple-400">Moments</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Let's discuss your vision and create something extraordinary together.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          >
+            {[
+              {
+                icon: Phone,
+                title: "Call Us",
+                contact: "+880 1234-567890",
+                description: "Speak directly with our team"
+              },
+              {
+                icon: Mail,
+                title: "Email Us",
+                contact: "info@event360.com",
+                description: "Send us your requirements"
+              },
+              {
+                icon: MapPin,
+                title: "Visit Us",
+                contact: "Dhaka, Bangladesh",
+                description: "Schedule a meeting"
+              }
+            ].map((contact, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <contact.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{contact.title}</h3>
+                <p className="text-purple-400 font-semibold mb-2">{contact.contact}</p>
+                <p className="text-gray-300 text-sm">{contact.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </div>
