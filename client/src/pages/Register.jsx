@@ -41,9 +41,7 @@ const Register = () => {
     phone: Yup.string()
       .matches(/^\+?[\d\s\-\(\)]+$/, 'Invalid phone number')
       .required('Phone number is required'),
-    address: Yup.string()
-      .min(10, 'Address must be at least 10 characters')
-      .required('Address is required'),
+
     password: Yup.string()
       .min(8, 'Password must be at least 8 characters')
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 'Password must contain at least one uppercase letter, one lowercase letter, and one number')
@@ -128,7 +126,7 @@ const Register = () => {
               last_name: '',
               email: '',
               phone: '',
-              address: '',
+
               password: '',
               confirmPassword: '',
               role: 'customer',
@@ -245,23 +243,7 @@ const Register = () => {
                   </div>
                 </div>
 
-                {/* Address */}
-                <div>
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                    Address *
-                  </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Field
-                      as="textarea"
-                      name="address"
-                      rows={3}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Enter your full address"
-                    />
-                  </div>
-                  <ErrorMessage name="address" component="div" className="text-red-500 text-sm mt-1" />
-                </div>
+
 
                 {/* Password */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
