@@ -1,6 +1,40 @@
 import React from 'react'
 
-const Logo = ({ className = "", showTagline = true }) => {
+const Logo = ({ className = "", showTagline = true, compact = false }) => {
+  if (compact) {
+    // Compact version for navbar - only text and camera icon
+    return (
+      <div className={`flex items-center space-x-2 ${className}`}>
+        {/* Main Logo Text */}
+        <div className="flex items-center">
+          <span className="text-orange-500 font-bold text-lg md:text-xl tracking-wide">EVENT</span>
+          <span className="text-orange-500 font-bold text-lg md:text-xl tracking-wide">360</span>
+        </div>
+        
+        {/* Camera Icon - Compact size */}
+        <div className="relative">
+          <svg 
+            className="w-5 h-5 md:w-6 md:h-6 text-orange-500" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            {/* Camera Body */}
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            {/* Camera Lens */}
+            <circle cx="12" cy="13" r="4"/>
+            {/* Flash/Hot Shoe Mount */}
+            <rect x="9" y="2" width="6" height="2" rx="1"/>
+          </svg>
+        </div>
+      </div>
+    )
+  }
+
+  // Full version for hero sections
   return (
     <div className={`flex flex-col items-center ${className}`}>
       {/* Main Logo Container */}

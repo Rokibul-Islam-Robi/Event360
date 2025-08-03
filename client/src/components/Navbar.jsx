@@ -49,7 +49,7 @@ const Navbar = () => {
           {/* Center Logo */}
           <Link to="/" className="flex items-center group">
             <div className="transform group-hover:scale-105 transition-transform duration-200">
-              <Logo showTagline={false} />
+              <Logo compact={true} />
             </div>
           </Link>
 
