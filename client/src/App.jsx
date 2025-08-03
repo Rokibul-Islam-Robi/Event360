@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
-import Navbar from './components/Navbar'
+import MenuBar from './components/MenuBar'
 import Footer from './components/Footer'
 
 // Pages
@@ -17,12 +17,14 @@ import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import BookEvent from './pages/BookEvent'
 import EquipmentRental from './pages/EquipmentRental'
+import Services from './pages/Services'
+import ManageBackground from './pages/ManageBackground'
 
 function App() {
   return (
     <AuthProvider>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <Navbar />
+        <MenuBar />
         <main className="flex-1">
           <Routes>
             {/* Public Routes */}
@@ -31,6 +33,7 @@ function App() {
             <Route path="/packages" element={<Packages />} />
             <Route path="/events" element={<Events />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/equipment-rental" element={<EquipmentRental />} />
@@ -49,6 +52,11 @@ function App() {
             <Route path="/book-event" element={
               <ProtectedRoute>
                 <BookEvent />
+              </ProtectedRoute>
+            } />
+            <Route path="/manage-background" element={
+              <ProtectedRoute>
+                <ManageBackground />
               </ProtectedRoute>
             } />
           </Routes>
