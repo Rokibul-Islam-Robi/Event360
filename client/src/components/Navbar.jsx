@@ -47,9 +47,12 @@ const Navbar = () => {
           </div>
           
           {/* Center Logo */}
-          <Link to="/" className="flex items-center group">
+          <Link to="/" className="flex flex-col items-center group">
             <div className="transform group-hover:scale-105 transition-transform duration-200">
               <Logo compact={true} />
+            </div>
+            <div className="text-xs text-gray-300 uppercase tracking-widest font-medium mt-1 opacity-80 group-hover:opacity-100 transition-opacity duration-200">
+              MAKE YOUR MOMENT SPECIAL
             </div>
           </Link>
 
