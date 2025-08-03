@@ -26,7 +26,6 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '../components/Logo';
-import HeroBackgroundManager from '../components/HeroBackgroundManager';
 
 const Home = () => {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -325,8 +324,7 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* Background Manager */}
-        <HeroBackgroundManager onBackgroundChange={handleBackgroundChange} />
+
       </section>
 
       {/* Rest of the content remains the same */}

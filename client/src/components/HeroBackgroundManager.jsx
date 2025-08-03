@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Upload, Save, X, Play, Pause, Image as ImageIcon, Video, Settings } from 'lucide-react';
 
-const HeroBackgroundManager = ({ onBackgroundChange }) => {
+const HeroBackgroundManager = ({ onBackgroundChange, isModalOpen = false, onCloseModal }) => {
   const [showModal, setShowModal] = useState(false);
   const [editingMedia, setEditingMedia] = useState(null);
   const [mediaList, setMediaList] = useState([]);
@@ -69,6 +69,7 @@ const HeroBackgroundManager = ({ onBackgroundChange }) => {
     }
 
     setShowModal(false);
+    if (onCloseModal) onCloseModal();
     setEditingMedia(null);
     setFormData({
       title: '',
@@ -117,76 +118,11 @@ const HeroBackgroundManager = ({ onBackgroundChange }) => {
 
   return (
     <>
-      {/* Media Management Button */}
-      <button
-        onClick={() => setShowModal(true)}
-        className="fixed top-4 right-4 z-50 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        <Settings className="w-4 h-4 inline mr-2" />
-        Manage Background
-      </button>
 
-      {/* Media List */}
-      <div className="fixed top-16 right-4 z-40 bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-xs">
-        <h3 className="text-white font-semibold mb-3">Background Media</h3>
-        <div className="space-y-2 max-h-64 overflow-y-auto">
-          {mediaList.map((media) => (
-            <div
-              key={media.id}
-              className={`p-3 rounded-lg border transition-all duration-200 ${
-                currentBackground && currentBackground.id === media.id
-                  ? 'border-purple-500 bg-purple-500/20'
-                  : 'border-gray-300 bg-white/5'
-              }`}
-            >
-              <div className="flex items-center space-x-2 mb-2">
-                {media.mediaType === 'image' ? (
-                  <ImageIcon className="w-4 h-4 text-blue-400" />
-                ) : (
-                  <Video className="w-4 h-4 text-red-400" />
-                )}
-                <span className="text-white text-sm font-medium truncate">
-                  {media.title || 'Untitled'}
-                </span>
-              </div>
-              
-              <div className="flex space-x-1">
-                <button
-                  onClick={() => handleSetActive(media)}
-                  className={`px-2 py-1 text-xs rounded ${
-                    currentBackground && currentBackground.id === media.id
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-600 text-white hover:bg-gray-700'
-                  }`}
-                >
-                  {currentBackground && currentBackground.id === media.id ? 'Active' : 'Set Active'}
-                </button>
-                <button
-                  onClick={() => handleEdit(media)}
-                  className="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(media.id)}
-                  className="px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-          
-          {mediaList.length === 0 && (
-            <p className="text-gray-300 text-sm text-center py-4">
-              No background media added yet
-            </p>
-          )}
-        </div>
-      </div>
+
 
       {/* Add/Edit Media Modal */}
-      {showModal && (
+      {(showModal || isModalOpen) && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
@@ -195,7 +131,10 @@ const HeroBackgroundManager = ({ onBackgroundChange }) => {
                   {editingMedia ? 'Edit Background Media' : 'Add Background Media'}
                 </h2>
                 <button
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    setShowModal(false);
+                    if (onCloseModal) onCloseModal();
+                  }}
                   className="text-gray-400 hover:text-gray-600"
                 >
                   <X className="w-6 h-6" />
@@ -334,7 +273,10 @@ const HeroBackgroundManager = ({ onBackgroundChange }) => {
               <div className="mt-8 flex justify-end space-x-4">
                 <button
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    setShowModal(false);
+                    if (onCloseModal) onCloseModal();
+                  }}
                   className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   Cancel
