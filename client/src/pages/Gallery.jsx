@@ -149,7 +149,7 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
@@ -160,48 +160,48 @@ const Gallery = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Our <span className="text-gradient">Gallery</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
               Explore our collection of stunning events, captured moments, and cinematic videos that tell your unique story.
             </p>
           </motion.div>
         </div>
       </div>
 
-      {/* Search and Filter Section */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="glass-card p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            {/* Search Bar */}
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search events, locations..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
+             {/* Search and Filter Section */}
+       <div className="container mx-auto px-4 py-8">
+         <div className="bg-white/70 backdrop-blur-sm p-6 mb-8 rounded-2xl shadow-xl border border-white/20">
+           <div className="flex flex-col md:flex-row gap-4 items-center">
+             {/* Search Bar */}
+             <div className="relative flex-1">
+               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+               <input
+                 type="text"
+                 placeholder="Search events, locations..."
+                 value={searchTerm}
+                 onChange={(e) => setSearchTerm(e.target.value)}
+                 className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+               />
+             </div>
 
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-2">
-              {filters.map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => setSelectedFilter(filter.id)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                    selectedFilter === filter.id
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-white/50 text-gray-700 hover:bg-white/80'
-                  }`}
-                >
-                  {filter.label}
-                </button>
-              ))}
-            </div>
+                         {/* Filter Buttons */}
+             <div className="flex flex-wrap gap-2">
+               {filters.map((filter) => (
+                 <button
+                   key={filter.id}
+                   onClick={() => setSelectedFilter(filter.id)}
+                   className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                     selectedFilter === filter.id
+                       ? 'bg-purple-600 text-white shadow-lg'
+                       : 'bg-white/50 text-gray-700 hover:bg-white/80 hover:text-gray-900'
+                   }`}
+                 >
+                   {filter.label}
+                 </button>
+               ))}
+             </div>
           </div>
         </div>
 
@@ -246,18 +246,18 @@ const Gallery = () => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     {item.title}
                   </h3>
                   
-                  <div className="flex items-center text-gray-600 mb-3">
+                  <div className="flex items-center text-gray-300 mb-3">
                     <Calendar className="w-4 h-4 mr-2" />
                     <span className="text-sm">
                       {new Date(item.date).toLocaleDateString()}
                     </span>
                   </div>
                   
-                  <div className="flex items-center text-gray-600 mb-4">
+                  <div className="flex items-center text-gray-300 mb-4">
                     <MapPin className="w-4 h-4 mr-2" />
                     <span className="text-sm">{item.location}</span>
                   </div>
@@ -292,7 +292,7 @@ const Gallery = () => {
 
                   {/* Engagement Stats */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-4 text-sm text-gray-300">
                       <div className="flex items-center gap-1">
                         <Heart className="w-4 h-4" />
                         <span>{item.likes}</span>
@@ -321,10 +321,10 @@ const Gallery = () => {
             className="text-center py-16"
           >
             <div className="glass-card p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              <h3 className="text-2xl font-semibold text-white mb-4">
                 No events found
               </h3>
-              <p className="text-gray-600 mb-6">
+                              <p className="text-gray-300 mb-6">
                 Try adjusting your search terms or filters to find what you're looking for.
               </p>
               <button

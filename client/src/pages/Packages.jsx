@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
 import PackageManager from '../components/PackageManager';
 
 const Packages = () => {
   const [selectedType, setSelectedType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
   const [packages, setPackages] = useState([]);
 
   // Load packages from localStorage
@@ -68,7 +70,11 @@ const Packages = () => {
   ];
 
   const filteredPackages = packages.filter(pkg => {
-    return selectedType === 'all' || pkg.package_type === selectedType;
+    const matchesType = selectedType === 'all' || pkg.package_type === selectedType;
+    const matchesSearch = pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         pkg.subtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         pkg.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesType && matchesSearch;
   });
 
   const handleAddPackage = (newPackage) => {
@@ -107,7 +113,7 @@ const Packages = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
@@ -128,23 +134,38 @@ const Packages = () => {
         </div>
       </div>
 
-      {/* Filter Section */}
+      {/* Search and Filter Section */}
       <div className="container mx-auto px-4 py-8">
-        <div className="glass-effect p-6 mb-8 rounded-2xl">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {packageTypes.map((type) => (
-              <button
-                key={type.id}
-                onClick={() => setSelectedType(type.id)}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                  selectedType === type.id
-                    ? 'bg-purple-600 text-white shadow-lg'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
-                }`}
-              >
-                {type.label}
-              </button>
-            ))}
+        <div className="bg-white/70 backdrop-blur-sm p-6 mb-8 rounded-2xl shadow-xl border border-white/20">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            {/* Search Bar */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search packages, titles, descriptions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-2">
+              {packageTypes.map((type) => (
+                <button
+                  key={type.id}
+                  onClick={() => setSelectedType(type.id)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                    selectedType === type.id
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-white/50 text-gray-700 hover:bg-white/80 hover:text-gray-900'
+                  }`}
+                >
+                  {type.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -169,15 +190,18 @@ const Packages = () => {
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
-            <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-white mb-4">
-                No packages found
-              </h3>
-              <p className="text-gray-300 mb-6">
-                Try adjusting your filters or add a new package to get started.
-              </p>
+                         <div className="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-white/20">
+               <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                 No packages found
+               </h3>
+               <p className="text-gray-600 mb-6">
+                 Try adjusting your filters or add a new package to get started.
+               </p>
               <button
-                onClick={() => setSelectedType('all')}
+                onClick={() => {
+                  setSelectedType('all');
+                  setSearchTerm('');
+                }}
                 className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors mr-4"
               >
                 Clear Filters

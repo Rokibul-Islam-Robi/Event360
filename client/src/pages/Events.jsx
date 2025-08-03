@@ -96,7 +96,7 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
@@ -107,10 +107,10 @@ const Events = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Our Events
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Discover our portfolio of beautifully captured moments and upcoming events
             </p>
           </motion.div>
@@ -189,33 +189,33 @@ const Events = () => {
 
                 {/* Event Details */}
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
                     {event.title}
                   </h3>
                   
                   <div className="space-y-3 mb-4">
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-300">
                       <Calendar className="w-4 h-4 mr-2" />
                       <span className="text-sm">{new Date(event.date).toLocaleDateString()}</span>
                     </div>
                     
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-300">
                       <Clock className="w-4 h-4 mr-2" />
                       <span className="text-sm">{event.time}</span>
                     </div>
                     
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-300">
                       <MapPin className="w-4 h-4 mr-2" />
                       <span className="text-sm">{event.location}</span>
                     </div>
                     
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-300">
                       <Camera className="w-4 h-4 mr-2" />
                       <span className="text-sm">{event.photographer}</span>
                     </div>
                   </div>
 
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">
                     {event.description}
                   </p>
 
@@ -244,8 +244,8 @@ const Events = () => {
           >
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20">
               <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No events found</h3>
-              <p className="text-gray-600">Try adjusting your search or filter criteria.</p>
+                              <h3 className="text-xl font-semibold text-white mb-2">No events found</h3>
+              <p className="text-gray-300">Try adjusting your search or filter criteria.</p>
             </div>
           </motion.div>
         )}
@@ -256,20 +256,20 @@ const Events = () => {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">150+</div>
-              <div className="text-gray-600">Events Captured</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">150+</div>
+              <div className="text-gray-300">Events Captured</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
-              <div className="text-gray-600">Happy Couples</div>
+              <div className="text-3xl font-bold text-purple-400 mb-2">50+</div>
+              <div className="text-gray-300">Happy Couples</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">25+</div>
-              <div className="text-gray-600">Corporate Events</div>
+              <div className="text-3xl font-bold text-green-400 mb-2">25+</div>
+              <div className="text-gray-300">Corporate Events</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">100%</div>
-              <div className="text-gray-600">Client Satisfaction</div>
+              <div className="text-3xl font-bold text-orange-400 mb-2">100%</div>
+              <div className="text-gray-300">Client Satisfaction</div>
             </div>
           </div>
         </div>

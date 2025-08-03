@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Logo = ({ className = "", showTagline = true, compact = false }) => {
+const Logo = ({ className = "", showTagline = true, compact = false, noSparkles = false, small = false }) => {
   if (compact) {
     // Compact version for navbar - only text and camera icon
     return (
@@ -39,23 +39,37 @@ const Logo = ({ className = "", showTagline = true, compact = false }) => {
     <div className={`flex flex-col items-center ${className}`}>
       {/* Main Logo Container */}
       <div className="flex items-center justify-center relative">
-        {/* Left Sparkle/Burst Lines */}
-        <div className="flex flex-col space-y-1 mr-4">
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-        </div>
+        {/* Left Sparkle/Burst Lines - Only show if noSparkles is false */}
+        {!noSparkles && (
+          <div className="flex flex-col space-y-1 mr-4">
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+          </div>
+        )}
         
         {/* Main Logo Text */}
         <div className="flex items-center">
-          <span className="text-orange-500 font-bold text-3xl md:text-4xl lg:text-5xl tracking-wide">EVENT</span>
-          <span className="text-orange-500 font-bold text-3xl md:text-4xl lg:text-5xl tracking-wide">360</span>
+          <span className={`text-orange-500 font-bold tracking-wide ${
+            small 
+              ? 'text-2xl md:text-3xl lg:text-4xl' 
+              : 'text-3xl md:text-4xl lg:text-5xl'
+          }`}>EVENT</span>
+          <span className={`text-orange-500 font-bold tracking-wide ${
+            small 
+              ? 'text-2xl md:text-3xl lg:text-4xl' 
+              : 'text-3xl md:text-4xl lg:text-5xl'
+          }`}>360</span>
         </div>
         
         {/* Camera Icon - Positioned above and to the right of "360" */}
         <div className="relative ml-2">
           <svg 
-            className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-orange-500" 
+            className={`text-orange-500 ${
+              small 
+                ? 'w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10' 
+                : 'w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12'
+            }`}
             viewBox="0 0 24 24" 
             fill="none" 
             stroke="currentColor" 
@@ -72,12 +86,14 @@ const Logo = ({ className = "", showTagline = true, compact = false }) => {
           </svg>
         </div>
         
-        {/* Right Sparkle/Burst Lines */}
-        <div className="flex flex-col space-y-1 ml-4">
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-          <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
-        </div>
+        {/* Right Sparkle/Burst Lines - Only show if noSparkles is false */}
+        {!noSparkles && (
+          <div className="flex flex-col space-y-1 ml-4">
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+            <div className="w-1 h-1 bg-orange-500 rounded-full"></div>
+          </div>
+        )}
       </div>
       
       {/* Tagline */}

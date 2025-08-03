@@ -275,7 +275,7 @@ const Home = () => {
                     transition: { duration: 0.2 }
                   }}
                 >
-                  <Logo showTagline={false} />
+                  <Logo showTagline={false} noSparkles={true} small={true} />
                 </motion.div>
                 {/* Tagline */}
                 <motion.p
@@ -293,95 +293,148 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {/* Main Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 1.1, 
-                delay: 0.5,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight"
-            >
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: 0.7,
-                  ease: "easeOut"
-                }}
-              >
-                Making Your Special Moments{' '}
-              </motion.span>
-              <motion.span 
-                className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: 0.9,
-                  ease: "easeOut"
-                }}
-              >
-                Last Forever
-              </motion.span>
-            </motion.h1>
+                         {/* Main Headline */}
+             <motion.h1
+               initial={{ opacity: 0, y: 40 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ 
+                 duration: 1.1, 
+                 delay: 0.5,
+                 ease: [0.25, 0.46, 0.45, 0.94]
+               }}
+               className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+             >
+               <motion.span
+                 initial={{ opacity: 0, x: -100, rotateY: -20 }}
+                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                 transition={{ 
+                   duration: 1.5, 
+                   delay: 0.7,
+                   ease: [0.25, 0.46, 0.45, 0.94]
+                 }}
+                 whileHover={{ 
+                   x: -10,
+                   scale: 1.02,
+                   transition: { duration: 0.4, ease: "easeOut" }
+                 }}
+                 className="inline-block"
+               >
+                 Making Your Special Moments{' '}
+               </motion.span>
+               <motion.span 
+                 className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent inline-block"
+                 initial={{ opacity: 0, x: 100, rotateY: 20 }}
+                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                 transition={{ 
+                   duration: 1.5, 
+                   delay: 0.9,
+                   ease: [0.25, 0.46, 0.45, 0.94]
+                 }}
+                 whileHover={{ 
+                   x: 10,
+                   scale: 1.02,
+                   transition: { duration: 0.4, ease: "easeOut" }
+                 }}
+               >
+                 Last Forever
+               </motion.span>
+             </motion.h1>
 
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 25, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
-                duration: 1, 
-                delay: 1.1,
-                ease: "easeOut"
-              }}
-              className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
-            >
-              Professional wedding photography and videography services that capture the essence of your most precious moments with artistic excellence.
-            </motion.p>
+             {/* Short Description */}
+             <motion.p
+               initial={{ opacity: 0, y: 25, scale: 0.98, x: -80 }}
+               animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+               transition={{ 
+                 duration: 1.6, 
+                 delay: 1.1,
+                 ease: [0.25, 0.46, 0.45, 0.94]
+               }}
+               whileHover={{ 
+                 x: -5,
+                 scale: 1.01,
+                 transition: { duration: 0.3, ease: "easeOut" }
+               }}
+               className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed"
+             >
+               Professional wedding photography and videography services with artistic excellence.
+             </motion.p>
 
-            {/* Call to Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
-                duration: 1.2, 
-                delay: 1.3,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-            >
-              <motion.div
-                whileHover={{ 
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Link
-                  to="/packages"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center group"
-                >
-                  <span>Explore Packages</span>
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ 
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <button className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center group shadow-xl">
-                  <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
-                  <span>Watch Showreel</span>
-                </button>
-              </motion.div>
-            </motion.div>
+
+
+                         {/* Call to Action Buttons */}
+             <motion.div
+               initial={{ opacity: 0, y: 30, scale: 0.95 }}
+               animate={{ opacity: 1, y: 0, scale: 1 }}
+               transition={{ 
+                 duration: 1.2, 
+                 delay: 1.3,
+                 ease: [0.25, 0.46, 0.45, 0.94]
+               }}
+               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+             >
+               <motion.div
+                 whileHover={{ 
+                   scale: 1.05,
+                   rotateY: 5,
+                   transition: { duration: 0.3, ease: "easeOut" }
+                 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="relative group"
+               >
+                 <motion.div
+                   className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"
+                   animate={{ scale: [1, 1.1, 1] }}
+                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                 />
+                 <Link
+                   to="/packages"
+                   className="relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center group border border-purple-400/30 hover:border-purple-400/60"
+                 >
+                   <motion.span
+                     whileHover={{ x: 2 }}
+                     transition={{ duration: 0.2 }}
+                   >
+                     Explore Packages
+                   </motion.span>
+                   <motion.div
+                     whileHover={{ x: 3, rotate: 5 }}
+                     transition={{ duration: 0.3 }}
+                   >
+                     <ArrowRight className="w-5 h-5 ml-2" />
+                   </motion.div>
+                 </Link>
+               </motion.div>
+               
+               <motion.div
+                 whileHover={{ 
+                   scale: 1.05,
+                   rotateY: -5,
+                   transition: { duration: 0.3, ease: "easeOut" }
+                 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="relative group"
+               >
+                 <motion.div
+                   className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+                   animate={{ scale: [1, 1.1, 1] }}
+                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                 />
+                 <button className="relative bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center group shadow-xl hover:shadow-2xl">
+                   <motion.div
+                     whileHover={{ rotate: 360, scale: 1.2 }}
+                     transition={{ duration: 0.5 }}
+                   >
+                     <Play className="w-5 h-5 mr-2" />
+                   </motion.div>
+                   <motion.span
+                     whileHover={{ x: 2 }}
+                     transition={{ duration: 0.2 }}
+                   >
+                     Watch Showreel
+                   </motion.span>
+                 </button>
+               </motion.div>
+             </motion.div>
           </motion.div>
         </div>
 
