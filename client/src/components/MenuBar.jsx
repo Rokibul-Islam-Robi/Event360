@@ -22,7 +22,6 @@ const MenuBar = () => {
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Services', path: '/services', icon: Package },
-    { name: 'Packages', path: '/packages', icon: Package },
     { name: 'Contact', path: '/contact', icon: Phone },
   ]
 
@@ -37,52 +36,46 @@ const MenuBar = () => {
       {/* Burger Menu Button */}
       <button
         onClick={handleMenuToggle}
-        className="fixed left-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/60 transition-all duration-300 group"
-        style={{ top: '80px' }}
+        className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200"
       >
         <motion.div
           animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
           transition={{ duration: 0.3 }}
         >
           {isOpen ? (
-            <X className="w-6 h-6 text-white" />
+            <X className="w-5 h-5" />
           ) : (
-            <Menu className="w-6 h-6 text-white" />
+            <Menu className="w-5 h-5" />
           )}
         </motion.div>
       </button>
 
-      {/* MenuBar Logo - positioned below Navbar */}
-      <div className="fixed left-6 z-40" style={{ top: '80px' }}>
-        <Logo showTagline={false} />
-      </div>
+             {/* Menu Overlay */}
+       <AnimatePresence>
+         {isOpen && (
+           <>
+             {/* Backdrop */}
+             <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               transition={{ duration: 0.3 }}
+               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+               onClick={() => setIsOpen(false)}
+             />
 
-      {/* Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 300, 
-                damping: 30 
-              }}
-              className="fixed top-0 left-0 h-full w-80 max-w-[80vw] bg-black/80 backdrop-blur-xl border-r border-white/20 z-50"
-            >
+             {/* Menu Panel */}
+             <motion.div
+               initial={{ x: '-100%' }}
+               animate={{ x: 0 }}
+               exit={{ x: '-100%' }}
+               transition={{ 
+                 type: "spring", 
+                 stiffness: 300, 
+                 damping: 30 
+               }}
+               className="fixed top-16 left-0 h-full w-80 max-w-[80vw] bg-black/80 backdrop-blur-xl border-r border-white/20 z-50"
+             >
               {/* Close Button */}
               <div className="flex justify-end p-6">
                 <button

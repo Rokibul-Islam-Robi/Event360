@@ -17,6 +17,7 @@ import {
   BookOpen
 } from 'lucide-react'
 import Logo from './Logo'
+import MenuBar from './MenuBar'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,11 +25,9 @@ const Navbar = () => {
   const location = useLocation()
 
   const navItems = [
-    { name: 'Home', path: '/', icon: Home },
     { name: 'Gallery', path: '/gallery', icon: Image },
     { name: 'Packages', path: '/packages', icon: Package },
     { name: 'Events', path: '/events', icon: Calendar },
-    { name: 'Contact', path: '/contact', icon: Phone },
   ]
 
   const isActive = (path) => location.pathname === path
@@ -42,11 +41,13 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Left side - leave space for MenuBar */}
-          <div className="w-32"></div>
+          {/* Left side - MenuBar */}
+          <div className="flex items-center space-x-4">
+            <MenuBar />
+          </div>
           
           {/* Center Logo */}
-          <Link to="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2">
+          <Link to="/" className="flex items-center">
             <Logo showTagline={false} />
           </Link>
 
