@@ -11,7 +11,6 @@ import {
   Camera, 
   Calendar,
   Package,
-  Home,
   Image,
   Phone,
   BookOpen
@@ -38,75 +37,90 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left side - MenuBar */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <MenuBar />
+            <div className="hidden md:block w-px h-8 bg-white/20"></div>
           </div>
           
           {/* Center Logo */}
-          <Link to="/" className="flex items-center">
-            <Logo showTagline={false} />
+          <Link to="/" className="flex items-center group">
+            <div className="transform group-hover:scale-105 transition-transform duration-200">
+              <Logo showTagline={false} />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium group ${
                     isActive(item.path)
-                      ? 'text-white bg-primary-600 shadow-lg'
+                      ? 'text-white bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
+                  <div className={`p-1.5 rounded-lg transition-all duration-200 ${
+                    isActive(item.path)
+                      ? 'bg-gradient-to-br from-purple-500 to-pink-500'
+                      : 'bg-gray-700 group-hover:bg-gray-600'
+                  }`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="font-medium">{item.name}</span>
                 </Link>
               )
             })}
           </div>
 
           {/* Action Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {/* Booking Button */}
             <Link
               to="/book-event"
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
             >
-              <BookOpen className="w-4 h-4" />
+              <BookOpen className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
               <span>Book Now</span>
             </Link>
 
             {/* Auth Buttons */}
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
                 <Link
                   to="/dashboard"
-                  className="btn-outline flex items-center space-x-2"
+                  className="flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all duration-300 font-medium group"
                 >
-                  <User className="w-4 h-4" />
+                  <User className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
                   <span>Dashboard</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="btn-secondary flex items-center space-x-2"
+                  className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white transition-all duration-300 font-medium group"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
                   <span>Logout</span>
                 </button>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
-                <Link to="/login" className="btn-outline">
+              <div className="flex items-center space-x-3">
+                <Link 
+                  to="/login" 
+                  className="px-4 py-2.5 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all duration-300 font-medium"
+                >
                   Login
                 </Link>
-                <Link to="/register" className="btn-secondary">
+                <Link 
+                  to="/register" 
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white transition-all duration-300 font-medium shadow-lg"
+                >
                   Register
                 </Link>
               </div>
@@ -117,7 +131,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10"
+              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -132,47 +146,60 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-effect border-t border-white/20"
+            className="md:hidden bg-gradient-to-b from-gray-800/95 to-gray-900/95 backdrop-blur-xl border-t border-white/10"
           >
             <div className="px-4 py-6 space-y-4">
-              {navItems.map((item) => {
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 font-medium ${
-                      isActive(item.path)
-                        ? 'text-white bg-primary-600 shadow-lg'
-                        : 'text-gray-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{item.name}</span>
-                  </Link>
-                )
-              })}
+              {/* Mobile Navigation Items */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Navigation
+                </h3>
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium ${
+                        isActive(item.path)
+                          ? 'text-white bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <div className={`p-2 rounded-lg ${
+                        isActive(item.path)
+                          ? 'bg-gradient-to-br from-purple-500 to-pink-500'
+                          : 'bg-gray-700'
+                      }`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span>{item.name}</span>
+                    </Link>
+                  )
+                })}
+              </div>
 
               {/* Mobile Action Buttons */}
-              <div className="pt-4 border-t border-white/20 space-y-3">
+              <div className="pt-4 border-t border-white/10 space-y-3">
                 <Link
                   to="/book-event"
                   onClick={() => setIsOpen(false)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-full"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-full"
                 >
                   <BookOpen className="w-4 h-4" />
                   <span>Book Now</span>
                 </Link>
               </div>
 
-              <div className="pt-4 border-t border-white/20">
+              {/* Mobile Auth Section */}
+              <div className="pt-4 border-t border-white/10">
                 {isAuthenticated ? (
                   <div className="space-y-3">
                     <Link
                       to="/dashboard"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/10"
+                      className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/10"
                     >
                       <User className="w-5 h-5" />
                       <span>Dashboard</span>
@@ -182,7 +209,7 @@ const Navbar = () => {
                         handleLogout()
                         setIsOpen(false)
                       }}
-                      className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-red-400 hover:bg-red-500/10 w-full"
+                      className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:text-red-400 hover:bg-red-500/10 w-full"
                     >
                       <LogOut className="w-5 h-5" />
                       <span>Logout</span>
@@ -193,14 +220,14 @@ const Navbar = () => {
                     <Link
                       to="/login"
                       onClick={() => setIsOpen(false)}
-                      className="btn-outline w-full justify-center"
+                      className="block w-full text-center px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all duration-200"
                     >
                       Login
                     </Link>
                     <Link
                       to="/register"
                       onClick={() => setIsOpen(false)}
-                      className="btn-secondary w-full justify-center"
+                      className="block w-full text-center px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all duration-200"
                     >
                       Register
                     </Link>
