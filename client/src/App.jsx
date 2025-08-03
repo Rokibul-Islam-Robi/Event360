@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import MenuBar from './components/MenuBar'
+import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 // Pages
@@ -25,6 +26,7 @@ function App() {
     <AuthProvider>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <MenuBar />
+        <Navbar />
         <main className="flex-1">
           <Routes>
             {/* Public Routes */}

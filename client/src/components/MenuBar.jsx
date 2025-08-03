@@ -37,7 +37,8 @@ const MenuBar = () => {
       {/* Burger Menu Button */}
       <button
         onClick={handleMenuToggle}
-        className="fixed top-6 left-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/60 transition-all duration-300 group"
+        className="fixed left-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/60 transition-all duration-300 group"
+        style={{ top: '80px' }}
       >
         <motion.div
           animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
@@ -51,8 +52,8 @@ const MenuBar = () => {
         </motion.div>
       </button>
 
-      {/* Logo */}
-      <div className="fixed top-6 left-20 z-40">
+      {/* MenuBar Logo - positioned below Navbar */}
+      <div className="fixed left-6 z-40" style={{ top: '80px' }}>
         <Logo showTagline={false} />
       </div>
 

@@ -42,8 +42,11 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
+          {/* Left side - leave space for MenuBar */}
+          <div className="w-32"></div>
+          
+          {/* Center Logo */}
+          <Link to="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2">
             <Logo showTagline={false} />
           </Link>
 
