@@ -254,37 +254,74 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
           >
-            {/* Logo */}
-            <div className="mb-8">
-              <Logo showTagline={true} />
-            </div>
+            {/* Logo Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="mb-12"
+            >
+              <div className="flex flex-col items-center space-y-4">
+                {/* Main Logo */}
+                <div className="transform hover:scale-105 transition-transform duration-300">
+                  <Logo showTagline={false} />
+                </div>
+                {/* Tagline */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="text-sm font-medium text-gray-300 uppercase tracking-widest"
+                >
+                  MAKE YOUR MOMENT SPECIAL
+                </motion.p>
+              </div>
+            </motion.div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight"
+            >
               Making Your Special Moments{' '}
-              <span className="text-purple-400">Last Forever</span>
-            </h1>
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Last Forever
+              </span>
+            </motion.h1>
 
             {/* Description */}
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+            >
               Professional wedding photography and videography services that capture the essence of your most precious moments with artistic excellence.
-            </p>
+            </motion.p>
 
             {/* Call to Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
               <Link
                 to="/packages"
-                className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center group"
               >
-                Explore Packages
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <span>Explore Packages</span>
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
-              <button className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center">
-                <Play className="w-5 h-5 mr-2" />
-                Watch Showreel
+              <button className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 flex items-center justify-center group shadow-xl">
+                <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
+                <span>Watch Showreel</span>
               </button>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
